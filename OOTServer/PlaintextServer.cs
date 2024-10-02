@@ -48,19 +48,24 @@ namespace OOTServer
                     writer.Flush();
                     reader.DiscardBufferedData();
                     string randomnumbers = reader.ReadLine();
-                    string result = ReturnRandom(randomnumbers);
-                    writer.WriteLine(result);
+                    writer.WriteLine(ReturnRandom(randomnumbers));
                     writer.Flush();
                     break;
                 case "Add":
                     writer.WriteLine("Add recognized");
                     writer.Flush();
                     reader.DiscardBufferedData();
+                    string addnumbers = reader.ReadLine();
+                    writer.WriteLine(ReturnAdd(addnumbers));
+                    writer.Flush();
                     break;
                 case "Subtract":
                     writer.WriteLine("Subtract recognized");
                     writer.Flush();
                     reader.DiscardBufferedData();
+                    string subtnumbers = reader.ReadLine();
+                    writer.WriteLine(ReturnSubtract(subtnumbers));
+                    writer.Flush();
                     break;
                 default:
                     writer.WriteLine($"Not recognized");
@@ -86,6 +91,36 @@ namespace OOTServer
                 {
                     Random random = new Random();
                     return $"Random number: {random.Next(firstnumber, secondnumber + 1)}";
+                }
+            }
+            return "Input not recognized. Make sure to type two numbers and a space between them";
+        }
+
+        private string ReturnAdd(string command)
+        {
+            int firstnumber;
+            int secondnumber;
+            string[] inputs = command.Split(' ');
+            if (inputs.Length == 2)
+            {
+                if (int.TryParse(inputs[0], out firstnumber) & int.TryParse(inputs[1], out secondnumber))
+                {
+                    return $"Sum: {firstnumber+secondnumber}";
+                }
+            }
+            return "Input not recognized. Make sure to type two numbers and a space between them";
+        }
+
+        private string ReturnSubtract(string command)
+        {
+            int firstnumber;
+            int secondnumber;
+            string[] inputs = command.Split(' ');
+            if (inputs.Length == 2)
+            {
+                if (int.TryParse(inputs[0], out firstnumber) & int.TryParse(inputs[1], out secondnumber))
+                {
+                    return $"Difference: {firstnumber - secondnumber}";
                 }
             }
             return "Input not recognized. Make sure to type two numbers and a space between them";
