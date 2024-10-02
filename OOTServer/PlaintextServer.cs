@@ -35,11 +35,6 @@ namespace OOTServer
             Console.WriteLine($"New client: {socket.Client.RemoteEndPoint}");
             StreamReader reader = new(socket.GetStream());
             StreamWriter writer = new(socket.GetStream());
-            //writer.WriteLine("Hiya :D please input your command. You can choose between:");
-            //writer.WriteLine("\tRandom");
-            //writer.WriteLine("\tAdd");
-            //writer.WriteLine("\tSubtract");
-            //writer.Flush();
             string command = reader.ReadLine();
             switch (command)
             {
@@ -75,8 +70,6 @@ namespace OOTServer
                     Console.WriteLine($"Numbers received: {numbers}");
                     break;
             }
-            //reader = new(socket.GetStream());
-            //writer = new(socket.GetStream());
 
         }
 
