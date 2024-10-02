@@ -47,6 +47,10 @@ namespace OOTServer
                     writer.WriteLine("Random recognized");
                     writer.Flush();
                     reader.DiscardBufferedData();
+                    string randomnumbers = reader.ReadLine();
+                    string result = ReturnRandom(randomnumbers);
+                    writer.WriteLine(result);
+                    writer.Flush();
                     break;
                 case "Add":
                     writer.WriteLine("Add recognized");
@@ -62,12 +66,29 @@ namespace OOTServer
                     writer.WriteLine($"Not recognized");
                     writer.Flush();
                     reader.DiscardBufferedData();
+                    string numbers = reader.ReadLine();
+                    Console.WriteLine($"Numbers received: {numbers}");
                     break;
             }
             //reader = new(socket.GetStream());
             //writer = new(socket.GetStream());
-            string numbers = reader.ReadLine();
-            Console.WriteLine($"Numbers received: {numbers}");
+
+        }
+
+        private string ReturnRandom(string command)
+        {
+            int firstnumber;
+            int secondnumber;
+            string[] inputs = command.Split(' ');
+            if (inputs.Length == 2)
+            {
+                if (int.TryParse(inputs[0], out firstnumber) & int.TryParse(inputs[1], out secondnumber))
+                {
+                    Random random = new Random();
+                    return $"Random number: {random.Next(firstnumber, secondnumber + 1)}";
+                }
+            }
+            return "Input not recognized. Make sure to type two numbers and a space between them";
         }
     }
 }
